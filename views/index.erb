@@ -1,0 +1,9 @@
+<div class="container">
+<div ng-controller="RecordsCtrl">
+<button ng-click="add()">追加</button>
+<table>
+<tr ng-repeat="record in records">
+<td><a href="/record/{{record.id}}">{{record.id}}</td>
+</tr>
+</div>
+</div>

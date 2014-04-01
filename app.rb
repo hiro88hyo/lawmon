@@ -1,0 +1,52 @@
+# encoding: utf-8
+require 'rubygems'
+require 'sinatra'
+require 'json'
+require './models'
+
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+  alias_method :u, :escape
+end
+
+# Routes
+get '/' do
+    erb :index
+end
+
+get '/record' do
+    @records = Record.all
+    @records.to_json
+end
+
+post '/record' , provides: :json do
+    params = JSON.parse request.body.read
+    rec = Record.create(:id => params['id'])
+    ''
+end
+
+delete '/record/:r_id' do |r_id|
+    Action.delete(:record_id => r_id)
+    Record.delete(:record_id => r_id)
+end
+
+get '/record/:r_id/action' do |r_id|
+    @actions = Action.where(:record_id => r_id)
+    @actions.to_json
+end
+
+post '/record/:r_id/action', provides: :json do
+    params = JSON.parse request.body.read
+    act = Action.create(
+    :id => params['id'],
+    :record_id => params['record_id'],
+    :start_time => params['start_time'],
+    :end_time => params['end_time'])
+    ''
+end
+
+get '/record/:id' do |id|
+    @actions = Action.where(:record_id => id).to_a
+    erb :actions
+end
