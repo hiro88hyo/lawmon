@@ -42,7 +42,9 @@ post '/record/:r_id/action', provides: :json do
     :id => params['id'],
     :record_id => params['record_id'],
     :start_time => params['start_time'],
-    :end_time => params['end_time'])
+    :end_time => params['end_time'],
+    :action_detail => params['action_detail'],
+    :notice => params['notice'])
     ''
 end
 

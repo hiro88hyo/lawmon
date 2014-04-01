@@ -16,6 +16,8 @@ app.controller('RecordsCtrl', function($scope, $resource){
 });
 
 app.controller('ActionsCtrl', function($scope, $resource){
+  $scope.tgEnd = true;
+  $scope.action = 'A1';
   var recId = location.href.split('/')[4];
   var Action = $resource('/record/:id/action', {id:recId},{
     'update': {method: 'PUT'}
@@ -36,7 +38,13 @@ app.controller('ActionsCtrl', function($scope, $resource){
     act.end_time = new Date();
     $scope.tgStart = false;
     $scope.tgEnd = true;
-    act.$save();
+    act.action_detail = $scope.detail;
+    act.notice = $scope.notice;
+    alert($scope.action);
+    act.$save(function(savedObject, handler){
+      $scope.detail = "";
+      $scope.notice = "";
+    });
   };
   $scope.delete = function(id){
     var p = findActionIndexById(id);
@@ -55,4 +63,3 @@ app.controller('ActionsCtrl', function($scope, $resource){
     return -1;
   }
 });
-
