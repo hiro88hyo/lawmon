@@ -1,91 +1,46 @@
 <div class="container">
   <div ng-controller="ActionsCtrl">
-	<div class="action-input-frame">
-	  <div class="action-input">
-		<div class="row">
-		  <div class="col-md-2">
-			(A)カウンター<br/><br/>
-			(B)FF調理<br/><br/>
-			(C)売場<br/><br/>
-			(D)バックルーム<br/><br/>
-			その他
-		  </div><!--/.col-md-2-->
-		  <div class="col-md-6">
-			<div class="btn-group" data-toggle="buttons">
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option1"> レジ接客
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option2"> 予約受付
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> レジフォロー
-			  </label>
-			  <br/><br/>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> FF準備
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> フライヤー調理
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> 電子レンジ調理
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> メンテナンス
-			  </label>
-			  <br/><br/>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> あああ
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> いいいい
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> うう
-			  </label>
-			  <br/><br/>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> え
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> おおおお
-			  </label>
-			  <label class="btn btn-default btn-sm">
-				<input type="radio" name="options" id="option3"> かか
-			  </label>
-			</div><!-- /btn-group -->
-		  </div><!-- /col-md-6 -->
-		  <div class="col-md-4">
-			<div class="input-group">
-			  <input type="text" class="form-control" placeholder="内容詳細">
-			</div><br/>
-			<div class="input-group">
-			  <input type="text" class="form-control" placeholder="気づき">
-			</div><br/>
-			<div class="btn-group">
-			  <button ng-disabled="tgStart" ng-click="clickStart()" class="btn btn-success">Start</button>
-			  <button ng-disabled="tgEnd" ng-click="clickEnd()" class="btn btn-success">End</button>
-			</div>
-		  </div><!-- /col-md-4 -->
-		</div><!-- /row -->
-	  </div><!-- /action-input -->
-	</div><!-- /raction-input-frame -->
-  
-	<div class="action-detail-frame">
-	  <div class="action-detail">
-		<div class="table-responsive">
-		  <table class="table table-bordered">
-			<tr><th>id</th><th>開始時刻</th><th>終了時刻</th><th>操作</th></tr>
-			<tr ng-repeat="action in actions">
-			  <td>{{action.id}}</td>
-			  <td>{{action.start_time}}</td>
-			  <td>{{action.end_time}}</td>
-			  <td><button ng-click="delete(action.id)">del</button></td>
-			</tr>
-		  </table>
-		</div><!-- /.table-responsive -->
-	  </div>
-	</div>
+    <div class="action-input-frame">
+      <div class="action-input">
+	<div class="row">
+	  <div class="col-md-6">
+	    {{action}}
+	    <input type="radio" ng-model="action" value="A1">あああ
+	    <input type="radio" ng-model="action" value="A2">いいい
+	    <input type="radio" ng-model="action" value="A3">ううう
+	  </div><!-- /col-md-6 -->
+	  <div class="col-md-4">
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="内容詳細" ng-model="detail">
+	    </div><br/>
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="気づき" ng-model="notice">
+	    </div><br/>
+	    <div class="btn-group">
+	      <button ng-disabled="tgStart" ng-click="clickStart()" class="btn btn-success">Start</button>
+	      <button ng-disabled="tgEnd" ng-click="clickEnd()" class="btn btn-success">End</button>
+	    </div>
+	  </div><!-- /col-md-4 -->
+	</div><!-- /row -->
+      </div><!-- /action-input -->
+    </div><!-- /raction-input-frame -->
+    
+    <div class="action-detail-frame">
+      <div class="action-detail">
+	<div class="table-responsive">
+	  <table class="table table-bordered">
+	    <tr><th>id</th><th>開始時刻</th><th>終了時刻</th><th>内容詳細</th><th>操作</th></tr>
+	    <tr ng-repeat="action in actions">
+	      <td>{{action.id}}</td>
+	      <td>{{action.start_time}}</td>
+	      <td>{{action.end_time}}</td>
+	      <td>{{action.action_detail}}</td>
+	      <td>{{action.notice}}</td>
+	      <td><button ng-click="delete(action.id)">del</button></td>
+	    </tr>
+	  </table>
+	</div><!-- /.table-responsive -->
+      </div>
+    </div>
   </div>
 </div>

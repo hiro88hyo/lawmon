@@ -6,9 +6,12 @@ app.controller('RecordsCtrl', function($scope, $resource){
   });
   $scope.records = Record.query();
   $scope.add = function(){
-    var d = new Date().getTime()/1000|0;
     var rec = new Record();
+    rec.created_at = new Date();
+    var d = rec.created_at.getTime()/1000|0;
     rec.id = "rec" + d;
+    rec.shop_name = $scope.shop;
+    rec.operator = $scope.operator;
     rec.$save(function(savedObject, handler){
       location.href='/record/' + rec.id;
     });
@@ -16,6 +19,8 @@ app.controller('RecordsCtrl', function($scope, $resource){
 });
 
 app.controller('ActionsCtrl', function($scope, $resource){
+  $scope.tgEnd = true;
+  $scope.action = 'A1';
   var recId = location.href.split('/')[4];
   var Action = $resource('/record/:id/action', {id:recId},{
     'update': {method: 'PUT'}
@@ -36,7 +41,12 @@ app.controller('ActionsCtrl', function($scope, $resource){
     act.end_time = new Date();
     $scope.tgStart = false;
     $scope.tgEnd = true;
-    act.$save();
+    act.action_detail = $scope.detail;
+    act.notice = $scope.notice;
+    act.$save(function(savedObject, handler){
+      $scope.detail = "";
+      $scope.notice = "";
+    });
   };
   $scope.delete = function(id){
     var p = findActionIndexById(id);
@@ -56,3 +66,10 @@ app.controller('ActionsCtrl', function($scope, $resource){
   }
 });
 
+
+function dateFormat(date) {
+  m = ('0' + (date.getMonth() + 1)).slice(-2);
+  d = ('0' + (date.getDate())).slice(-2);
+
+  return date.getFullYear() + '/' + m + '/' + d + '/' + toLocaleTimeString();
+}
