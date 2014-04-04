@@ -6,9 +6,12 @@ app.controller('RecordsCtrl', function($scope, $resource){
   });
   $scope.records = Record.query();
   $scope.add = function(){
-    var d = new Date().getTime()/1000|0;
     var rec = new Record();
+    rec.created_at = new Date();
+    var d = rec.created_at.getTime()/1000|0;
     rec.id = "rec" + d;
+    rec.shop_name = $scope.shop;
+    rec.operator = $scope.operator;
     rec.$save(function(savedObject, handler){
       location.href='/record/' + rec.id;
     });
@@ -40,7 +43,6 @@ app.controller('ActionsCtrl', function($scope, $resource){
     $scope.tgEnd = true;
     act.action_detail = $scope.detail;
     act.notice = $scope.notice;
-    alert($scope.action);
     act.$save(function(savedObject, handler){
       $scope.detail = "";
       $scope.notice = "";
@@ -63,3 +65,11 @@ app.controller('ActionsCtrl', function($scope, $resource){
     return -1;
   }
 });
+
+
+function dateFormat(date) {
+  m = ('0' + (date.getMonth() + 1)).slice(-2);
+  d = ('0' + (date.getDate())).slice(-2);
+
+  return date.getFullYear() + '/' + m + '/' + d + '/' + toLocaleTimeString();
+}
