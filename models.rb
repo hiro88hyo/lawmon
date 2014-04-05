@@ -2,9 +2,9 @@
 require 'rubygems'
 require 'active_record'
 require 'yaml'
+require 'erb'
 
-ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
-ActiveRecord::Base.establish_connection('development')
+ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read(File.join("config","database.yml"))).result)
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
 
 class Action < ActiveRecord::Base
