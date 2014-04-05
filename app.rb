@@ -12,7 +12,6 @@ end
 
 # Routes
 get '/' do
-    @msg = ActiveRecord::Base.configurations
     erb :index
 end
 
