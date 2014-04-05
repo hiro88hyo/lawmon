@@ -30,6 +30,9 @@ app.controller('ActionsCtrl', function($scope, $resource){
     var d = new Date().getTime()/1000|0;
     var act = new Action();
     act.id = "act" + d;
+    act.crew_name = $scope.crew;
+    act.action_id = $scope.action;
+    act.action_detail = $scope.detail;
     act.record_id = recId;
     act.start_time = new Date();
     $scope.actions.push(act);
@@ -41,8 +44,10 @@ app.controller('ActionsCtrl', function($scope, $resource){
     act.end_time = new Date();
     $scope.tgStart = false;
     $scope.tgEnd = true;
+    act_action_id = $scope.action;
     act.action_detail = $scope.detail;
     act.notice = $scope.notice;
+    act.crew_name = $scope.crew;
     act.$save(function(savedObject, handler){
       $scope.detail = "";
       $scope.notice = "";
