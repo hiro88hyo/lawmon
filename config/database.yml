@@ -3,5 +3,10 @@ development:
   database: data/action.sqlite
 
 production:
-  adapter: pg
-  database: data/action.pg
+  encoding: unicode
+  adapter: postgresql
+  username: txijomcjsuskbt
+  port: 5432
+  host: ec2-54-204-2-217.compute-1.amazonaws.com
+  database: d2ma0o7qc99ges
+  password: omVLxQWuDzqcN4olkQ2Pt1ZB4Z
