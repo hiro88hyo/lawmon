@@ -16,37 +16,46 @@ get '/' do
 end
 
 get '/record' do
-    @records = Record.all
-    @records.to_json
+  @records = Record.all
+  @records.to_json
 end
 
 post '/record' , provides: :json do
-    params = JSON.parse request.body.read
-    rec = Record.create(:id => params['id'])
-    ''
+  params = JSON.parse request.body.read
+  rec = Record.create(
+  :id => params['id'],
+  :created_at => params['created_at'],
+  :shop_name => params['shop_name'],
+  :operator => params['operator']
+  )
+  ''
 end
 
 delete '/record/:r_id' do |r_id|
-    Action.delete(:record_id => r_id)
-    Record.delete(:record_id => r_id)
+  Action.delete(:record_id => r_id)
+  Record.delete(:record_id => r_id)
 end
 
 get '/record/:r_id/action' do |r_id|
-    @actions = Action.where(:record_id => r_id)
-    @actions.to_json
+  @actions = Action.where(:record_id => r_id)
+  @actions.to_json
 end
 
 post '/record/:r_id/action', provides: :json do
-    params = JSON.parse request.body.read
-    act = Action.create(
-    :id => params['id'],
-    :record_id => params['record_id'],
-    :start_time => params['start_time'],
-    :end_time => params['end_time'])
-    ''
+  params = JSON.parse request.body.read
+  act = Action.create(
+  :id => params['id'],
+  :record_id => params['record_id'],
+  :start_time => params['start_time'],
+  :end_time => params['end_time'],
+  :action_id => params['action_id'],
+  :crew_name => params['crew_name'],
+  :action_detail => params['action_detail'],
+  :notice => params['notice'])
+  ''
 end
 
 get '/record/:id' do |id|
-    @actions = Action.where(:record_id => id).to_a
-    erb :actions
+  @actions = Action.where(:record_id => id).to_a
+  erb :actions
 end

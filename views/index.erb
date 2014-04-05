@@ -1,9 +1,26 @@
 <div class="container">
-<div ng-controller="RecordsCtrl">
-<button ng-click="add()">追加</button>
-<table>
-<tr ng-repeat="record in records">
-<td><a href="/record/{{record.id}}">{{record.id}}</td>
-</tr>
-</div>
+  <div ng-controller="RecordsCtrl">
+    <div class="record-input-frame">
+      <form class="form-inline" role="form">
+	<input type="text" class="form-control" placeholder="店舗名" ng-model="shop">
+	<input type="text" class="form-control" placeholder="調査者" ng-model="operator">
+	<button ng-click="add()" class="btn btn-default">記録開始</button>
+      </form>
+    </div>
+    <div class="record-detail-frame">
+      <div class="record-detail">
+	<div class="table-responsive">
+	  <table class="table table-bordered table-hover">
+	    <tr><th>記録日時</th><th>店舗名</th><th>記録者</th><th>操作</th></tr>
+	    <tr ng-repeat="record in records">
+	      <td width="160px"><a href="/record/{{record.id}}">{{record.created_at | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+	      <td>{{record.shop_name}}</td>
+	      <td>{{record.operator}}</td>
+	      <td></td>
+	    </tr>
+	  </table>
+	</div>
+      </div>
+    </div>
+  </div>
 </div>
