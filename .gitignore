@@ -18,6 +18,6 @@ _yardoc
 doc/
 
 private/
-data/
+data/action.sqlite
 .DS_Store
 
