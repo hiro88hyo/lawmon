@@ -48,6 +48,8 @@ post '/record/:r_id/action', provides: :json do
   :record_id => params['record_id'],
   :start_time => params['start_time'],
   :end_time => params['end_time'],
+  :action_id => params['action_id'],
+  :crew_name => params['crew_name'],
   :action_detail => params['action_detail'],
   :notice => params['notice'])
   ''

@@ -3,19 +3,53 @@
     <div class="action-input-frame">
       <div class="action-input">
 	<div class="row">
-	  <div class="col-md-6">
-	    {{action}}
-	    <input type="radio" ng-model="action" value="A1">あああ
-	    <input type="radio" ng-model="action" value="A2">いいい
-	    <input type="radio" ng-model="action" value="A3">ううう
+	  <div class="col-md-10">
+	    {{action}}<br/>
+	    <input type="radio" ng-model="action" value="A1">レジ接客
+	    <input type="radio" ng-model="action" value="A1-1">レジ接客(ホットFF)
+	    <input type="radio" ng-model="action" value="A1-2">レジ接客(常温FF)
+	    <input type="radio" ng-model="action" value="A1-3">レジ接客(おでん)
+	    <input type="radio" ng-model="action" value="A1-4">レジ接客(中華まん)
+	    <input type="radio" ng-model="action" value="A1-5">レジ接客(マチカフェ)<br/>
+	    <input type="radio" ng-model="action" value="A2">カウンターサービス
+	    <input type="radio" ng-model="action" value="A3">レジフォロー
+	    <input type="radio" ng-model="action" value="A4">マチカフェ抽出フォロー
+	    <input type="radio" ng-model="action" value="A5">作業：マチカフェ（アイス・豆補充等）
+	    <input type="radio" ng-model="action" value="A7">雑務その他（内容記入）<br/><br/>
+	    <input type="radio" ng-model="action" value="B1">FF準備・片付け
+	    <input type="radio" ng-model="action" value="B2">フライヤー調理（単品名）
+	    <input type="radio" ng-model="action" value="B3">電子レンジ調理（単品名）
+	    <input type="radio" ng-model="action" value="B4">盛りつけ・袋詰め・陳列
+	    <input type="radio" ng-model="action" value="B5">鮮度管理表記入・チェック・廃棄
+	    <input type="radio" ng-model="action" value="B6">メンテナンス（カテゴリー）
+	    <input type="radio" ng-model="action" value="B7">雑務その他（内容記入）<br/><br/>
+	    <input type="radio" ng-model="action" value="C1">清掃（清掃箇所・ゴンドラNo）
+	    <input type="radio" ng-model="action" value="C2">納品対応（入荷便）
+	    <input type="radio" ng-model="action" value="C3">品出し補充（ゴンドラNo）
+	    <input type="radio" ng-model="action" value="C4">前陳（ゴンドラNo）
+	    <input type="radio" ng-model="action" value="C5">棚割変更（ゴンドラNo）
+	    <input type="radio" ng-model="action" value="C6">販売許容（清掃箇所・ゴンドラNo）
+	    <input type="radio" ng-model="action" value="C7">雑務その他（内容記入）<br/><br/>
+	    <input type="radio" ng-model="action" value="D1">発注（カテゴリー）
+	    <input type="radio" ng-model="action" value="D2">雑務（内容記入）
+	    <input type="radio" ng-model="action" value="D3">コミュニケーション（内容）
+	    <input type="radio" ng-model="action" value="D4">休憩<br/><br/>
+	    <input type="radio" ng-model="action" value="F1">厨房始業時業務
+	    <input type="radio" ng-model="action" value="F2">材料の準備
+	    <input type="radio" ng-model="action" value="F3">フライヤー調理（単品名）
+	    <input type="radio" ng-model="action" value="F4">電子レンジ調理（単品名）
+	    <input type="radio" ng-model="action" value="F5">作成・袋詰め・陳列（完成品明記）
+	    <input type="radio" ng-model="action" value="F6">片付け（内容記入）
+	    <input type="radio" ng-model="action" value="F7">鮮度管理表記入・チェック・廃棄
+	    <input type="radio" ng-model="action" value="F8">雑務その他（内容記入）
 	  </div><!-- /col-md-6 -->
-	  <div class="col-md-4">
-	    <div class="input-group">
-	      <input type="text" class="form-control" placeholder="内容詳細" ng-model="detail">
-	    </div><br/>
-	    <div class="input-group">
-	      <input type="text" class="form-control" placeholder="気づき" ng-model="notice">
-	    </div><br/>
+	  <div class="col-md-2">
+	    <input type="text" class="form-control" placeholder="クルー名" ng-model="crew">
+	    <br/>
+	    <input type="text" class="form-control" placeholder="内容詳細" ng-model="detail">
+	    <br/>
+	    <input type="text" class="form-control" placeholder="気づき" ng-model="notice">
+	    <br/>
 	    <div class="btn-group">
 	      <button ng-disabled="tgStart" ng-click="clickStart()" class="btn btn-success">Start</button>
 	      <button ng-disabled="tgEnd" ng-click="clickEnd()" class="btn btn-success">End</button>
@@ -27,20 +61,21 @@
     
     <div class="action-detail-frame">
       <div class="action-detail">
-	<div class="table-responsive">
-	  <table class="table table-bordered">
-	    <tr><th>id</th><th>開始時刻</th><th>終了時刻</th><th>内容詳細</th><th>操作</th></tr>
-	    <tr ng-repeat="action in actions">
-	      <td>{{action.id}}</td>
-	      <td>{{action.start_time}}</td>
-	      <td>{{action.end_time}}</td>
-	      <td>{{action.action_detail}}</td>
-	      <td>{{action.notice}}</td>
-	      <td><button ng-click="delete(action.id)">del</button></td>
-	    </tr>
-	  </table>
-	</div><!-- /.table-responsive -->
-      </div>
+		<div class="table-responsive">
+		  <table class="table table-bordered table-hover">
+			<tr><th>クルー名</th><th>項目</th><th>内容詳細</th><th>開始時刻</th><th>終了時刻</th><th>気付き</th><th>操作</th></tr>
+			<tr ng-repeat="action in actions">
+			  <td>{{action.crew_name}}</td>
+			  <td>{{action.action_id}}</td>
+			  <td>{{action.action_detail}}</td>
+			  <td>{{action.start_time | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+			  <td>{{action.end_time | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
+			  <td>{{action.notice}}</td>
+			  <td></td>
+			</tr>
+		  </table>
+		</div><!-- /.table-responsive -->
+	  </div>
     </div>
   </div>
 </div>
