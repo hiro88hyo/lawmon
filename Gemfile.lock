@@ -10,6 +10,8 @@ GEM
       activesupport (= 4.0.4)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
+    activerecord-postgresql-adapter (0.0.1)
+      pg
     activesupport (4.0.4)
       i18n (~> 0.6, >= 0.6.9)
       minitest (~> 4.2)
@@ -22,6 +24,7 @@ GEM
     i18n (0.6.9)
     minitest (4.7.5)
     multi_json (1.9.2)
+    pg (0.17.1)
     pg (0.17.1-x86-mingw32)
     rack (1.5.2)
     rack-protection (1.5.2)
@@ -42,6 +45,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  activerecord-postgresql-adapter
   pg
   sinatra
   sqlite3
