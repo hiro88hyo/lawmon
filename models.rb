@@ -5,6 +5,7 @@ require 'yaml'
 require 'erb'
 
 ActiveRecord::Base.configurations = YAML.load(ERB.new(File.read(File.join("config","database.yml"))).result)
+ActiveRecord::Base.establish_connection()
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
 
 class Action < ActiveRecord::Base
