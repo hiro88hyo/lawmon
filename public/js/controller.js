@@ -22,7 +22,7 @@ app.controller('ActionsCtrl', function($scope, $resource){
   $scope.tgEnd = true;
   $scope.action = 'A1';
   var recId = location.href.split('/')[4];
-  var Action = $resource('/record/:id/action', {id:recId},{
+  var Action = $resource('/record/:rid/action/:aid', {rid:recId},{
     'update': {method: 'PUT'}
   });
   $scope.actions = Action.query();
@@ -53,24 +53,12 @@ app.controller('ActionsCtrl', function($scope, $resource){
       $scope.notice = "";
     });
   };
-  $scope.delete = function(id){
-    var p = findActionIndexById(id);
-    if (p>=0){
-      act = $scope.actions;
-      $scope.actions.$remove(id);
-      $scope.actions.splice(p,1);
-    };
+  $scope.remove = function(index, action_id){
+    $scope.actions[index].$remove({aid: action_id}, function(){
+      $scope.actions.splice(index,1);
+    });
   };
-  function findActionIndexById(id){
-    for(var i=0, max=$scope.actions.length; i<max; i++){
-      if ($scope.actions[i].id == id){
-        return i;
-      }
-    }
-    return -1;
-  }
 });
-
 
 function dateFormat(date) {
   m = ('0' + (date.getMonth() + 1)).slice(-2);

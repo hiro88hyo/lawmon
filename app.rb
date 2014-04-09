@@ -55,6 +55,11 @@ post '/record/:r_id/action', provides: :json do
   ''
 end
 
+delete '/record/:r_id/action/:a_id' do |r_id,a_id|
+  @action = Action.where(:id => a_id)
+  Action.destroy(@action)
+end
+
 get '/record/:id' do |id|
   @actions = Action.where(:record_id => id).to_a
   erb :actions
