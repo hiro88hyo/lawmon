@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngResource']);
 
 app.controller('RecordsCtrl', function($scope, $resource){
-  var Record = $resource('/record', {},{
+  var Record = $resource('/record/:rid', {},{
     'update': {method: 'PUT'}
   });
   $scope.records = Record.query();
@@ -16,13 +16,19 @@ app.controller('RecordsCtrl', function($scope, $resource){
       location.href='/record/' + rec.id;
     });
   };
+  $scope.remove = function(index, record_id){
+    $scope.records[index].$remove({rid: record_id}, function(){
+      $scope.records.splice(indexOf($scope.records, record_id),1);
+    });
+  };
 });
 
 app.controller('ActionsCtrl', function($scope, $resource){
   $scope.tgEnd = true;
   $scope.action = 'A1';
   var recId = location.href.split('/')[4];
-  var Action = $resource('/record/:id/action', {id:recId},{
+  $scope.recId = recId;
+  var Action = $resource('/record/:rid/action/:aid', {rid:recId},{
     'update': {method: 'PUT'}
   });
   $scope.actions = Action.query();
@@ -53,28 +59,18 @@ app.controller('ActionsCtrl', function($scope, $resource){
       $scope.notice = "";
     });
   };
-  $scope.delete = function(id){
-    var p = findActionIndexById(id);
-    if (p>=0){
-      act = $scope.actions;
-      $scope.actions.$remove(id);
-      $scope.actions.splice(p,1);
-    };
+  $scope.remove = function(index, action_id){
+    $scope.actions[index].$remove({aid: action_id}, function(){
+      $scope.actions.splice(indexOf($scope.actions, action_id),1);
+    });
   };
-  function findActionIndexById(id){
-    for(var i=0, max=$scope.actions.length; i<max; i++){
-      if ($scope.actions[i].id == id){
-        return i;
-      }
-    }
-    return -1;
-  }
 });
 
-
-function dateFormat(date) {
-  m = ('0' + (date.getMonth() + 1)).slice(-2);
-  d = ('0' + (date.getDate())).slice(-2);
-
-  return date.getFullYear() + '/' + m + '/' + d + '/' + toLocaleTimeString();
+function indexOf(arr,id){
+  for(var i=0; i<arr.length; i++){
+    if (arr[i].id == id){
+      return i;
+    }
+  }
+  return -1;
 }

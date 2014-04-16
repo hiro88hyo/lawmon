@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
+require 'kconv'
 require './models'
 
 helpers do
@@ -32,13 +33,21 @@ post '/record' , provides: :json do
 end
 
 delete '/record/:r_id' do |r_id|
-  Action.delete(:record_id => r_id)
-  Record.delete(:record_id => r_id)
+  Action.destroy_all(record_id: r_id)
+  @record = Record.where(:id => r_id)
+  Record.destroy(@record)
 end
 
 get '/record/:r_id/action' do |r_id|
   @actions = Action.where(:record_id => r_id)
   @actions.to_json
+end
+
+get '/record/:r_id/actions.csv' do |r_id|
+  @csv = Action.to_csv(r_id)
+  content_type 'text/csv'
+  attachment 'actions.csv'
+  @csv.tosjis
 end
 
 post '/record/:r_id/action', provides: :json do
@@ -53,6 +62,11 @@ post '/record/:r_id/action', provides: :json do
   :action_detail => params['action_detail'],
   :notice => params['notice'])
   ''
+end
+
+delete '/record/:r_id/action/:a_id' do |r_id,a_id|
+  @action = Action.where(:id => a_id)
+  Action.destroy(@action)
 end
 
 get '/record/:id' do |id|

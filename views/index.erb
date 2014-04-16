@@ -12,11 +12,11 @@
 	<div class="table-responsive">
 	  <table class="table table-bordered table-hover">
 	    <tr><th>記録日時</th><th>店舗名</th><th>記録者</th><th>操作</th></tr>
-	    <tr ng-repeat="record in records">
+	    <tr ng-repeat="record in records | orderBy:'id':true">
 	      <td width="160px"><a href="/record/{{record.id}}">{{record.created_at | date: 'yyyy/MM/dd HH:mm:ss'}}</td>
 	      <td>{{record.shop_name}}</td>
 	      <td>{{record.operator}}</td>
-	      <td></td>
+	      <td><button ng-click="remove($index,record.id)">remove</button></td>
 	    </tr>
 	  </table>
 	</div>
