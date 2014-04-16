@@ -32,8 +32,9 @@ post '/record' , provides: :json do
 end
 
 delete '/record/:r_id' do |r_id|
-  Action.delete(:record_id => r_id)
-  Record.delete(:record_id => r_id)
+  Action.destroy_all(record_id: r_id)
+  @record = Record.where(:id => r_id)
+  Record.destroy(@record)
 end
 
 get '/record/:r_id/action' do |r_id|

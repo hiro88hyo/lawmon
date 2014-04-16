@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngResource']);
 
 app.controller('RecordsCtrl', function($scope, $resource){
-  var Record = $resource('/record', {},{
+  var Record = $resource('/record/:rid', {},{
     'update': {method: 'PUT'}
   });
   $scope.records = Record.query();
@@ -14,6 +14,11 @@ app.controller('RecordsCtrl', function($scope, $resource){
     rec.operator = $scope.operator;
     rec.$save(function(savedObject, handler){
       location.href='/record/' + rec.id;
+    });
+  };
+  $scope.remove = function(index, record_id){
+    $scope.records[index].$remove({rid: record_id}, function(){
+      $scope.records.splice(indexOf($scope.records, record_id),1);
     });
   };
 });
