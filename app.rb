@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
+require 'kconv'
 require './models'
 
 helpers do
@@ -40,6 +41,13 @@ end
 get '/record/:r_id/action' do |r_id|
   @actions = Action.where(:record_id => r_id)
   @actions.to_json
+end
+
+get '/record/:r_id/actions.csv' do |r_id|
+  @csv = Action.to_csv(r_id)
+  content_type 'text/csv'
+  attachment 'actions.csv'
+  @csv.tosjis
 end
 
 post '/record/:r_id/action', provides: :json do

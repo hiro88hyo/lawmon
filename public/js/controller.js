@@ -27,6 +27,7 @@ app.controller('ActionsCtrl', function($scope, $resource){
   $scope.tgEnd = true;
   $scope.action = 'A1';
   var recId = location.href.split('/')[4];
+  $scope.recId = recId;
   var Action = $resource('/record/:rid/action/:aid', {rid:recId},{
     'update': {method: 'PUT'}
   });
