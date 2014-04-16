@@ -55,14 +55,16 @@ app.controller('ActionsCtrl', function($scope, $resource){
   };
   $scope.remove = function(index, action_id){
     $scope.actions[index].$remove({aid: action_id}, function(){
-      $scope.actions.splice(index,1);
+      $scope.actions.splice(indexOf($scope.actions, action_id),1);
     });
   };
 });
 
-function dateFormat(date) {
-  m = ('0' + (date.getMonth() + 1)).slice(-2);
-  d = ('0' + (date.getDate())).slice(-2);
-
-  return date.getFullYear() + '/' + m + '/' + d + '/' + toLocaleTimeString();
+function indexOf(arr,id){
+  for(var i=0; i<arr.length; i++){
+    if (arr[i].id == id){
+      return i;
+    }
+  }
+  return -1;
 }
